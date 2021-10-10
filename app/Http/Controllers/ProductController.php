@@ -6,20 +6,42 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    function show(Request $req)
+    // 共用的 function
+    private function getProducts()
     {
-        $id = $req->input('id');
-
-        $product = [
+        return [
             [
+                "id" => 1,
                 "imageUrl" => asset('images/apple01.jpg')
             ],
             [
+                "id" => 2,
                 "imageUrl" => asset('images/orange01.jpg')
             ]
         ];
+    }
 
-        $product = $product[$id];
+    function index()
+    {
+        $products = $this->getProducts();
+
+        return view('product.index', [
+            "products" => $products
+        ]);
+    }
+
+    function show($id, Request $req)
+    {
+        $products = $this->getProducts();
+
+        $index = $id - 1;
+
+        if ($index < 0 || $index >= count($products)) {
+
+            abort(404);
+        }
+
+        $product = $products[$index];
 
         return view('product.show', [
             "product" => $product

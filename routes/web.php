@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +21,6 @@ Route::get('/', function () {
 });
 Route::get('/pb', [PageController::class, 'pb']);
 
-Route::get('/product', [ProductController::class, 'show']);
+Route::resource('products', ProductController::class);
+
+Route::resource('orders', OrderController::class);
