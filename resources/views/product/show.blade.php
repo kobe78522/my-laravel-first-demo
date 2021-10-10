@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="main">This is PBpage {{$ver}}</div>
-
-<div class="main">my level : {{$lv}}</div>
+<h1>My product</h1>
+<img class="my-bg" src="{{$product['imageUrl']}}" alt="apple">
 @endsection
 
 @section('inline_js')
