@@ -36,6 +36,25 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
+    public function deleteCookie(Request $req)
+    {
+        //假如request內有傳送 id
+        if ($req->has('id')) {
+            $productId = $req->input('id'); //取得request內的id
+            $cart = $this->getCartFromCookie();
+
+            if (isset($cart[$productId])) {
+                unset($cart[$productId]);
+                // $cart = json_encode($cart, true);
+                $cartToJson = empty($cart) ? "{}" : json_encode($cart, true);
+                Cookie::queue('cart', $cartToJson, 60 * 24 * 7, null, null, false, false);
+                return response('success'); //回傳response為success
+            }
+        }
+
+        return response('failed'); // 若沒有就回傳response 為failed
+    }
+
     private function getCartFromCookie()
     {
         $cart = Cookie::get('cart');

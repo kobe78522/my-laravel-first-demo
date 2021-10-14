@@ -28,7 +28,7 @@
                     <input type="number" name='product_{{$cartItem["productInfo"]["id"]}}' min="1" value="{{$cartItem['quantity']}}">
                 </td>
                 <td>
-                    <button type="button">刪除</button>
+                    <button type="button" class="cartDeleteBtn" data-id="{{$cartItem['productInfo']['id']}}">刪除</button>
                 </td>
             </tr>
             @endforeach
@@ -42,4 +42,7 @@
 
 @section('inline_js')
 @parent
+<script>
+    initCartDeleteButton("{{route('cart.cookie.delete')}}")
+</script>
 @endsection
